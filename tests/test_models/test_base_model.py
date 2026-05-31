@@ -5,6 +5,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 import os
 import time
+from unittest import skipIf
 
 
 class TestBaseModelInstantiation(unittest.TestCase):
@@ -90,6 +91,8 @@ class TestBaseModelInstantiation(unittest.TestCase):
 class TestBaseModelSave(unittest.TestCase):
     """Tests for BaseModel save method."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_save_updates_updated_at(self):
         """Test that save updates updated_at."""
         obj = BaseModel()
@@ -98,6 +101,8 @@ class TestBaseModelSave(unittest.TestCase):
         obj.save()
         self.assertGreater(obj.updated_at, old_updated_at)
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_save_creates_file(self):
         """Test that save creates the JSON file."""
         obj = BaseModel()

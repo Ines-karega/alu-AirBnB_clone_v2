@@ -6,15 +6,20 @@ import json
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models import storage
+from unittest import skipIf
 
 
 class TestFileStorageInstantiation(unittest.TestCase):
     """Tests for FileStorage instantiation."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_file_storage_instantiation(self):
         """Test that FileStorage instantiates correctly."""
         self.assertIsInstance(FileStorage(), FileStorage)
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_storage_is_file_storage(self):
         """Test that storage is an instance of FileStorage."""
         self.assertIsInstance(storage, FileStorage)
@@ -23,10 +28,14 @@ class TestFileStorageInstantiation(unittest.TestCase):
 class TestFileStorageAll(unittest.TestCase):
     """Tests for FileStorage all method."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_all_returns_dict(self):
         """Test that all returns a dictionary."""
         self.assertIsInstance(storage.all(), dict)
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_all_returns_same_dict(self):
         """Test that all returns the same dict object each call."""
         self.assertIs(storage.all(), storage.all())
@@ -35,6 +44,8 @@ class TestFileStorageAll(unittest.TestCase):
 class TestFileStorageNew(unittest.TestCase):
     """Tests for FileStorage new method."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_new_adds_to_objects(self):
         """Test that new adds an object to __objects."""
         obj = BaseModel()
@@ -52,12 +63,16 @@ class TestFileStorageNew(unittest.TestCase):
 class TestFileStorageSave(unittest.TestCase):
     """Tests for FileStorage save method."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_save_creates_file(self):
         """Test that save creates the JSON file."""
         obj = BaseModel()
         storage.save()
         self.assertTrue(os.path.exists("file.json"))
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_save_file_contains_object(self):
         """Test that the saved file contains the object."""
         obj = BaseModel()
@@ -78,6 +93,8 @@ class TestFileStorageSave(unittest.TestCase):
 class TestFileStorageReload(unittest.TestCase):
     """Tests for FileStorage reload method."""
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_reload_loads_objects(self):
         """Test that reload loads objects from the file."""
         obj = BaseModel()
@@ -86,6 +103,8 @@ class TestFileStorageReload(unittest.TestCase):
         key = "BaseModel.{}".format(obj.id)
         self.assertIn(key, storage.all())
 
+    @skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+            "FileStorage only test")
     def test_reload_no_file_no_error(self):
         """Test that reload raises no error if file doesn't exist."""
         try:
