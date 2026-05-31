@@ -14,10 +14,12 @@ class FileStorage:
         if cls:
             result = {}
             for key, value in FileStorage.__objects.items():
-                if isinstance(value, cls) or \
-                   value.__class__.__name__ == cls or \
-                   value.__class__ == cls:
-                    result[key] = value
+                if type(cls) is str:
+                    if value.__class__.__name__ == cls:
+                        result[key] = value
+                else:
+                    if isinstance(value, cls):
+                        result[key] = value
             return result
         return FileStorage.__objects
 
@@ -69,3 +71,7 @@ class FileStorage:
                     FileStorage.__objects[key] = classes[class_name](**value)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        """Call reload to deserialize the JSON file to objects."""
+        self.reload()

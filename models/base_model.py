@@ -41,8 +41,9 @@ class BaseModel:
 
     def __str__(self):
         """Return string representation of BaseModel instance."""
-        return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__)
+        d = {k: v for k, v in self.__dict__.items()
+             if k != '_sa_instance_state'}
+        return "[{}] ({}) {}".format(type(self).__name__, self.id, d)
 
     def save(self):
         """Update updated_at with the current datetime and save to storage."""
