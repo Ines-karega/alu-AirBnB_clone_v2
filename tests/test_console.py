@@ -10,5 +10,6 @@ class TestHBNBCommand(unittest.TestCase):
         """Test that the console module exists."""
         self.assertTrue(True)
 
+
 if __name__ == "__main__":
     unittest.main()
