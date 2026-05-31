@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import MySQLdb\")",
+      "Bash(python3 -c \"import pymysql\")",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db python3 -c ' *)",
+      "Bash(rm -f file.json *)",
+      "Read(//tmp/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db echo 'create State name=\"California\" *)",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db python3 console.py)",
+      "Bash(mysql -u hbnb_dev -phbnb_dev_pwd hbnb_dev_db)",
+      "Bash(python3 -c \"import sqlalchemy; print\\(sqlalchemy.__version__\\)\")",
+      "Bash(python3 -W error -c ' *)",
+      "Bash(python3 -W error console.py)",
+      "Bash(python3 -W all console.py)",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db python3 -W error -c 'from models import storage')",
+      "Bash(python3 -W error -c \"from models import storage; print\\('FileStorage OK'\\)\")",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db python3 -W error -c 'from models import storage; print\\('\\\\''DBStorage OK'\\\\''\\)')",
+      "Bash(python3 -W error::DeprecationWarning -W error::PendingDeprecationWarning -c 'from models import storage; print\\('\\\\''OK'\\\\''\\)')",
+      "Bash(HBNB_TYPE_STORAGE=db HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db python3 -W error::DeprecationWarning -W error::PendingDeprecationWarning -c 'from models import storage; print\\('\\\\''OK'\\\\''\\)')"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}
