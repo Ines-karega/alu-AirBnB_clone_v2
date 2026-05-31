@@ -28,7 +28,6 @@ class FileStorage:
             if key in FileStorage.__objects:
                 del FileStorage.__objects[key]
 
-
     def new(self, obj):
         """Set in __objects the obj with key <obj class name>.id."""
         key = "{}.{}".format(type(obj).__name__, obj.id)

@@ -10,5 +10,6 @@ class TestDBStorage(unittest.TestCase):
         """Test that the DBStorage module exists."""
         self.assertTrue(True)
 
+
 if __name__ == "__main__":
     unittest.main()
