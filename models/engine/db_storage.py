@@ -3,9 +3,10 @@
 import os
 try:
     import MySQLdb
+    _db_driver = 'mysql+mysqldb'
 except ImportError:
     import pymysql
-    pymysql.install_as_MySQLdb()
+    _db_driver = 'mysql+pymysql'
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
@@ -30,8 +31,8 @@ class DBStorage:
         db = os.getenv('HBNB_MYSQL_DB')
         env = os.getenv('HBNB_ENV')
 
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                      format(user, pwd, host, db),
+        self.__engine = create_engine('{}://{}:{}@{}/{}'.
+                                      format(_db_driver, user, pwd, host, db),
                                       pool_pre_ping=True)
 
         if env == "test":
