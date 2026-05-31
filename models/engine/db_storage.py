@@ -49,7 +49,7 @@ class DBStorage:
         for obj in objs:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             obj_dict[key] = obj
-            
+
         return obj_dict
 
     def new(self, obj):
@@ -68,6 +68,7 @@ class DBStorage:
     def reload(self):
         """Create all tables in the database and create session"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()

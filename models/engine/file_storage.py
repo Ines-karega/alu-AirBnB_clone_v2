@@ -14,7 +14,9 @@ class FileStorage:
         if cls:
             result = {}
             for key, value in FileStorage.__objects.items():
-                if type(value) == cls or value.__class__.__name__ == cls or value.__class__ == cls:
+                if isinstance(value, cls) or \
+                   value.__class__.__name__ == cls or \
+                   value.__class__ == cls:
                     result[key] = value
             return result
         return FileStorage.__objects

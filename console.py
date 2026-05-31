@@ -50,13 +50,13 @@ Usage: create <class name> <param 1> <param 2> ..."""
         if args[0] not in CLASSES:
             print("** class doesn't exist **")
             return
-        
+
         kwargs = {}
         for param in args[1:]:
             if '=' not in param:
                 continue
             key, value = param.split('=', 1)
-            
+
             if value.startswith('"') and value.endswith('"'):
                 value = value[1:-1].replace('\\"', '"').replace('_', ' ')
             elif '.' in value:
@@ -69,7 +69,7 @@ Usage: create <class name> <param 1> <param 2> ..."""
                     value = int(value)
                 except ValueError:
                     continue
-                    
+
             kwargs[key] = value
 
         obj = CLASSES[args[0]](**kwargs)
