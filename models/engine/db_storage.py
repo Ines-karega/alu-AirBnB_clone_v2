@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 """This module defines the DBStorage engine"""
 import os
+try:
+    import MySQLdb
+except ImportError:
+    import pymysql
+    pymysql.install_as_MySQLdb()
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
@@ -25,7 +30,7 @@ class DBStorage:
         db = os.getenv('HBNB_MYSQL_DB')
         env = os.getenv('HBNB_ENV')
 
-        self.__engine = create_engine('mysql+pymysql://{}:{}@{}/{}'.
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(user, pwd, host, db),
                                       pool_pre_ping=True)
 
