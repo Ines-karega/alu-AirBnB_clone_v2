@@ -50,6 +50,9 @@ server {
 }
 NGINX_EOF
 
+# Allow HTTP traffic
+ufw allow 80/tcp > /dev/null 2>&1 || true
+
 # Restart Nginx
 service nginx restart
 
