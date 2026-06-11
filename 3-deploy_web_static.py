@@ -2,7 +2,7 @@
 """Fabric script for full deployment - packing and deploying web_static"""
 import os
 from datetime import datetime
-from fabric.api import env, local, put, run, runs_once
+from fabric.api import env, local, put, run
 
 
 env.hosts = ['54.204.136.7', '44.201.166.17']
@@ -10,7 +10,6 @@ env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
 
-@runs_once
 def do_pack():
     """Generate a .tgz archive from the contents of the web_static folder"""
     if not os.path.exists("versions"):
