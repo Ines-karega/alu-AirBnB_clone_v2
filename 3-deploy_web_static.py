@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Fabric script for full deployment - packing and deploying web_static"""
 
-from fabric.api import env, put, run, local
+from fabric.api import env, put, run, local, runs_once
 from datetime import datetime
 import os
 
@@ -11,6 +11,7 @@ env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
 
+@runs_once
 def do_pack():
     """
     Compress web_static folder into a .tgz archive
