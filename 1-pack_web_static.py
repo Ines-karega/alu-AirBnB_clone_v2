@@ -1,43 +1,25 @@
 #!/usr/bin/python3
-"""Fabric script to pack web_static folder into a .tgz archive"""
-
-from fabric.api import local
-from datetime import datetime
+"""Fabric script that generates a .tgz archive from the web_static folder"""
 import os
+from datetime import datetime
+from fabric.api import local
 
 
 def do_pack():
-    """
-    Compress web_static folder into a .tgz archive
+    """Generate a .tgz archive from the contents of the web_static folder"""
+    if not os.path.exists("versions"):
+        os.makedirs("versions")
 
-    Returns:
-        str: Path to the created archive if successful
-        None: If archive creation failed
-    """
-    try:
-        # Create versions directory if it doesn't exist
-        if not os.path.exists('versions'):
-            os.makedirs('versions')
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    archive_path = "versions/web_static_{}.tgz".format(timestamp)
 
-        # Generate timestamp
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        archive_name = f"web_static_{timestamp}.tgz"
-        archive_path = f"versions/{archive_name}"
+    print("Packing web_static to {}".format(archive_path))
+    result = local("tar -cvzf {} web_static".format(archive_path),
+                   capture=False)
 
-        print(f"Packing web_static to {archive_path}")
-
-        # Create the archive
-        result = local(f"tar -cvzf {archive_path} web_static", capture=False)
-
-        # Check if command was successful
-        if result.succeeded:
-            # Get file size
-            file_size = os.path.getsize(archive_path)
-            print(f"web_static packed: {archive_path} -> {file_size}Bytes")
-            return archive_path
-        else:
-            return None
-
-    except Exception as e:
-        print(f"Error: {e}")
+    if result.failed:
         return None
+
+    size = os.path.getsize(archive_path)
+    print("web_static packed: {} -> {}Bytes".format(archive_path, size))
+    return archive_path

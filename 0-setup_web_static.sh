@@ -1,15 +1,15 @@
-#!/bin/bash
-# Script to set up web servers for web_static deployment
+#!/usr/bin/env bash
+# Sets up web servers for the deployment of web_static
 
 # Install Nginx if not already installed
-if ! command -v nginx &> /dev/null; then
-    apt-get update
+if ! command -v nginx > /dev/null 2>&1; then
+    apt-get update -y
     apt-get install -y nginx
 fi
 
 # Create necessary directories
-mkdir -p /data/web_static/releases/test
-mkdir -p /data/web_static/shared
+mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/shared/
 
 # Create fake HTML file for testing
 cat > /data/web_static/releases/test/index.html << 'EOF'
@@ -22,33 +22,35 @@ cat > /data/web_static/releases/test/index.html << 'EOF'
 </html>
 EOF
 
-# Remove existing symbolic link if it exists
+# Remove existing symbolic link and create new one
 rm -f /data/web_static/current
-
-# Create new symbolic link
 ln -s /data/web_static/releases/test/ /data/web_static/current
 
-# Change ownership of /data/ folder to ubuntu:ubuntu
+# Give ownership of /data/ to ubuntu user and group recursively
 chown -R ubuntu:ubuntu /data/
 
-# Update Nginx configuration
-nginx_config="/etc/nginx/sites-available/default"
+# Write Nginx config with hbnb_static alias location
+cat > /etc/nginx/sites-available/default << 'NGINX_EOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-# Check if the configuration already has the hbnb_static location
-if ! grep -q "location /hbnb_static" "$nginx_config"; then
-    # Find the server block and add the new location before the closing brace
-    sed -i '/server_name _;/a\
-\
-\tlocation /hbnb_static {\
-\t\talias /data/web_static/current/;\
-\t}' "$nginx_config"
-fi
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
 
-# Test nginx configuration
-nginx -t
+    server_name _;
+
+    location /hbnb_static {
+        alias /data/web_static/current/;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+NGINX_EOF
 
 # Restart Nginx
-systemctl restart nginx
+service nginx restart
 
-# Exit successfully
 exit 0
