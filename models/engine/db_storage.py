@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""This module defines the DBStorage engine"""
+"""This module defines the DBStorage engine."""
 import os
 try:
-    import MySQLdb
+    import MySQLdb  # noqa: F401
     _db_driver = 'mysql+mysqldb'
 except ImportError:
-    import pymysql
+    import pymysql  # noqa: F401
     _db_driver = 'mysql+pymysql'
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -19,12 +19,13 @@ from models.amenity import Amenity
 
 
 class DBStorage:
-    """Interacts with the MySQL database"""
+    """Interacts with the MySQL database."""
+
     __engine = None
     __session = None
 
     def __init__(self):
-        """Instantiate a DBStorage object"""
+        """Instantiate a DBStorage object."""
         user = os.getenv('HBNB_MYSQL_USER')
         pwd = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
@@ -39,7 +40,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query on the current database session"""
+        """Query on the current database session."""
         classes = (User, State, City, Amenity, Place, Review)
         obj_dict = {}
 
@@ -67,7 +68,7 @@ class DBStorage:
                 pass
 
     def save(self):
-        """Commit all changes of the current database session"""
+        """Commit all changes of the current database session."""
         try:
             self.__session.commit()
         except Exception:
@@ -75,12 +76,12 @@ class DBStorage:
             raise
 
     def delete(self, obj=None):
-        """Delete from the current database session obj if not None"""
+        """Delete from the current database session obj if not None."""
         if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
-        """Create all tables in the database and create session"""
+        """Create all tables in the database and create session."""
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)

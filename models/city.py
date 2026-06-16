@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 
 class City(BaseModel, Base):
     """Represents a City."""
+
     __tablename__ = 'cities'
 
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':

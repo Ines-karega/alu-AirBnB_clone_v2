@@ -28,11 +28,11 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     def do_quit(self, line):
-        """Quit command to exit the program"""
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, line):
-        """Exit the program on EOF (Ctrl+D)"""
+        """Exit the program on EOF (Ctrl+D)."""
         print()
         return True
 
@@ -42,7 +42,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Create a new instance of a class, save it, and print its id.
-Usage: create <class name> <param 1> <param 2> ..."""
+
+        Usage: create <class name> <param 1> <param 2> ...
+        """
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -78,7 +80,9 @@ Usage: create <class name> <param 1> <param 2> ..."""
 
     def do_show(self, line):
         """Print the string representation of an instance.
-Usage: show <class name> <id>"""
+
+        Usage: show <class name> <id>
+        """
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -98,7 +102,9 @@ Usage: show <class name> <id>"""
 
     def do_destroy(self, line):
         """Delete an instance based on the class name and id.
-Usage: destroy <class name> <id>"""
+
+        Usage: destroy <class name> <id>
+        """
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -119,7 +125,9 @@ Usage: destroy <class name> <id>"""
 
     def do_all(self, line):
         """Print all string representations of all instances.
-Usage: all [class name]"""
+
+        Usage: all [class name]
+        """
         objects = storage.all()
         if line:
             if line not in CLASSES:
@@ -135,7 +143,9 @@ Usage: all [class name]"""
 
     def do_update(self, line):
         """Update an instance by adding or updating an attribute.
-Usage: update <class name> <id> <attribute name> "<attribute value>"""
+
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+        """
         args = line.split()
         if not args:
             print("** class name missing **")

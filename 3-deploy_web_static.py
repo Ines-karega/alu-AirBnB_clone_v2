@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Fabric script for full deployment - packing and deploying web_static"""
+"""Fabric script for full deployment - packing and deploying web_static."""
 import os
 from datetime import datetime
 from fabric.api import env, local, put, run
@@ -11,7 +11,7 @@ env.key_filename = '~/.ssh/id_rsa'
 
 
 def do_pack():
-    """Generate a .tgz archive from the contents of the web_static folder"""
+    """Generate a .tgz archive from the contents of the web_static folder."""
     if not os.path.exists("versions"):
         os.makedirs("versions")
 
@@ -31,7 +31,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """Distribute an archive to the web servers"""
+    """Distribute an archive to the web servers."""
     if not os.path.exists(archive_path):
         return False
 
@@ -58,7 +58,7 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """Create and distribute an archive to the web servers"""
+    """Create and distribute an archive to the web servers."""
     archive_path = do_pack()
     if archive_path is None:
         return False

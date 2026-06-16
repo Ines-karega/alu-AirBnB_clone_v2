@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Fabric script that generates a .tgz archive from the web_static folder"""
+"""Fabric script that generates a .tgz archive from the web_static folder."""
 import os
 from datetime import datetime
 from fabric.api import local
 
 
 def do_pack():
-    """Generate a .tgz archive from the contents of the web_static folder"""
+    """Generate a .tgz archive from the contents of the web_static folder."""
     if not os.path.exists("versions"):
         os.makedirs("versions")
 

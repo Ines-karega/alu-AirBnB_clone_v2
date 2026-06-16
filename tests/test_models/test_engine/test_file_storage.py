@@ -67,7 +67,7 @@ class TestFileStorageSave(unittest.TestCase):
             "FileStorage only test")
     def test_save_creates_file(self):
         """Test that save creates the JSON file."""
-        obj = BaseModel()
+        BaseModel()
         storage.save()
         self.assertTrue(os.path.exists("file.json"))
 

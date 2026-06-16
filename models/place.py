@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship
 
 
 if os.getenv("HBNB_TYPE_STORAGE") == "db":
-    from models.base_model import Base
     place_amenity = Table(
         'place_amenity', Base.metadata,
         Column('place_id', String(60), ForeignKey('places.id'),
@@ -18,6 +17,7 @@ if os.getenv("HBNB_TYPE_STORAGE") == "db":
 
 class Place(BaseModel, Base):
     """Represents a Place."""
+
     __tablename__ = 'places'
 
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
@@ -51,7 +51,7 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            """Return list of Review instances with matching place_id"""
+            """Return list of Review instances with matching place_id."""
             from models import storage
             from models.review import Review
             return [review for review in storage.all(Review).values()
@@ -59,7 +59,7 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """Return list of Amenity instances based on amenity_ids"""
+            """Return list of Amenity instances based on amenity_ids."""
             from models import storage
             from models.amenity import Amenity
             return [amenity for amenity in storage.all(Amenity).values()
@@ -67,7 +67,7 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj):
-            """Append an Amenity.id to amenity_ids"""
+            """Append an Amenity.id to amenity_ids."""
             from models.amenity import Amenity
             if isinstance(obj, Amenity):
                 self.amenity_ids.append(obj.id)
