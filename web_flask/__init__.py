@@ -1,2 +1,2 @@
 #!/usr/bin/python3
-"""Flask app package"""
+"""Flask web application package."""
